@@ -1,7 +1,7 @@
 
 export const getProductById = async (id: string) => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL
-    const response = await fetch(`${apiUrl}/api/product/id?id=${id}`)
+    const response = await fetch(`${apiUrl}/api/product/productId/id?id=${id}`)
     return response.json()
 }
 

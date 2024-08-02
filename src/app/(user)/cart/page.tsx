@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import React, { useEffect, useState } from 'react'
 
@@ -36,19 +36,19 @@ const CartPage = () => {
         if (deleteResponse) {
             toast({
                 description: deleteResponse.message,
-                className: 'text-primary1'
+                className: "text-primary1"
             })
             dispath(updateCart(cartItems - 1))
             setDatas((prevArray) => prevArray.filter((item: any) => item._id !== id));
         }
     }
     return (
-        <div className='my-10'>
+        <div className="my-10">
             <Table>
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-[200px]">Product Name</TableHead>
-                        <TableHead className='md:block hidden'>Image</TableHead>
+                        <TableHead className="md:block hidden">Image</TableHead>
                         <TableHead>Price</TableHead>
                         <TableHead className="text-right">Action</TableHead>
                     </TableRow>
@@ -58,11 +58,11 @@ const CartPage = () => {
                         <TableRow key={data._id}>
                             <TableCell className="font-medium capitalize">{data.productId.name}</TableCell>
                             <TableCell className="font-medium md:block hidden">
-                                <img src={data.productId.image} alt='product' className='h-20 w-auto' />
+                                <img src={data.productId.image} alt="product" className="h-20 w-auto" />
                             </TableCell>
                             <TableCell className="font-medium">{data.productId.price}</TableCell>
                             <TableCell className="text-red-700 text-2xl relative">
-                                <AiFillDelete className='absolute right-3 top-1/2 translate-y-[-50%]' onClick={() => handleDelete(data._id)} />
+                                <AiFillDelete className="absolute right-3 top-1/2 translate-y-[-50%]" onClick={() => handleDelete(data._id)} />
                             </TableCell>
                         </TableRow>
                     ))}

@@ -7,12 +7,20 @@ import { Button } from "@/components/ui/button";
 import { IProduct } from "@/interface/product";
 import { useRouter } from "next/navigation"
 import RelatedProducts from "@/components/related-product"
+import { addToCart } from "../../header/api";
+import { useToast } from "@/components/ui/use-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCart } from "@/store/features/cartSlice";
+import { RootState } from "@/store/store";
 
 
 export default function DetailProductPage({ params }: { params: { id: string } }) {
     const [product, setProduct] = useState<IProduct>()
     const [relatedProducts, setRelatedProducts] = useState<IProduct[] | null>(null)
     const router = useRouter()
+    const { toast } = useToast()
+    const dispath = useDispatch()
+    const cartItems = useSelector((state: RootState) => state.cart.amount)
 
     const fetchData = async () => {
         const response = await getProductById(params.id)
@@ -23,6 +31,30 @@ export default function DetailProductPage({ params }: { params: { id: string } }
     useEffect(() => {
         fetchData()
     }, [])
+
+    const handleAddToCart = async () => {
+        const data = await addToCart(params.id)
+        if (data) {
+            if (data.statusCode == 200) {
+                toast({
+                    description: data.message,
+                    className: 'text-red-500'
+                })
+            }
+
+            if (data.statusCode == 201) {
+                toast({
+                    description: data.message,
+                    className: 'text-primary1'
+                })
+                dispath(updateCart(cartItems + 1))
+            }
+        }
+        else {
+            router.push('/login', { scroll: true })
+        }
+    }
+
     return (
         <div className='max-w-7xl mx-auto xl:px-0 px-4'>
             <div className='flex gap-2 font-semibold items-center mt-8'>
@@ -52,7 +84,7 @@ export default function DetailProductPage({ params }: { params: { id: string } }
                         <div className='w-full h-[1px] bg-primary1 my-6'></div>
                         <span className='font-semibold'>Stock: {` ${product.stock}`}</span>
                         <div className='mt-4 flex gap-4'>
-                            <Button className="bg-primary1 hover:bg-primary1/90 text-white">Add to cart</Button>
+                            <Button className="bg-primary1 hover:bg-primary1/90 text-white" onClick={handleAddToCart}>Add to cart</Button>
                         </div>
                     </div>
                 </div>

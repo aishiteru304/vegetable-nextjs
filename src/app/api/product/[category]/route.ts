@@ -7,7 +7,8 @@ export async function GET(req: NextRequest) {
     try {
         await connectMongoDB();
 
-        const { searchParams } = new URL(req.url);
+        // const { searchParams } = new URL(req.url);
+        const searchParams = req.nextUrl.searchParams;
         const category = searchParams.get('category');
 
         if (!category) {

@@ -14,13 +14,13 @@ import login from "@/app/(user)/login/api"
 
 const loginSchema = z.object({
     email: z.string()
-        .email('Email invalid.')
+        .email("Email invalid.")
         .min(1),
 
     password: z.string()
-        .min(8, 'Password must have length of at least 8.')
-        .regex(/[A-Za-z]/, 'Password must contain at least 1 letter.')
-        .regex(/[0-9]/, 'Password must contain at least 1 number.'),
+        .min(8, "Password must have length of at least 8.")
+        .regex(/[A-Za-z]/, "Password must contain at least 1 letter.")
+        .regex(/[0-9]/, "Password must contain at least 1 number."),
 })
 
 const registerSchema = loginSchema.extend({
@@ -30,8 +30,8 @@ const registerSchema = loginSchema.extend({
 }).superRefine(({ password, confirmPassword }, ctx) => {
     if (password !== confirmPassword) {
         ctx.addIssue({
-            path: ['confirmPassword'],
-            message: 'Passwords must match',
+            path: ["confirmPassword"],
+            message: "Passwords must match",
             code: z.ZodIssueCode.custom,
         });
     }
@@ -82,7 +82,7 @@ export function LoginForm() {
                     <Button type="submit" className="bg-primary1 hover:bg-primary1/90">Login</Button>
                 </form>
             </FormProvider>
-            <span className='mt-4'> Don't have an account? <Link href="/register" className='text-primary1 font-semibold'>Register</Link></span>
+            <span className='mt-4'> Do not have an account? <Link href="/register" className='text-primary1 font-semibold'>Register</Link></span>
         </>
     )
 }

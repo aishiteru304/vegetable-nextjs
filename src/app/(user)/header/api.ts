@@ -1,7 +1,7 @@
 export const logout = async () => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL
     const res = await fetch(`${apiUrl}/api/auth/logout`, {
-        method: 'POST'
+        method: "POST"
     })
     return res.json()
 }
@@ -14,12 +14,12 @@ export const getProfile = async () => {
     if (token) {
         const res = await fetch(`${apiUrl}/api/auth/login`, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                "Authorization": `Bearer ${token}`
             }
         })
 
         if (!res.ok && res.status == 401) {
-            // throw new Error('Failed to fetch profile');
+            // throw new Error("Failed to fetch profile");
             const logoutResponse = await logout()
         }
 
@@ -38,9 +38,9 @@ export const addToCart = async (id: string) => {
     const token = tokenData.token
     if (token) {
         const res = await fetch(`${apiUrl}/api/cart`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Authorization': `Bearer ${token}`
+                "Authorization": `Bearer ${token}`
             },
 
             body: JSON.stringify({
@@ -62,7 +62,7 @@ export const getLengthItemsFromCart = async () => {
     if (token) {
         const res = await fetch(`${apiUrl}/api/cart`, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                "Authorization": `Bearer ${token}`
             },
         })
 

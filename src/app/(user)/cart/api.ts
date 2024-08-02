@@ -6,7 +6,7 @@ export const getItemsFromCart = async () => {
     if (token) {
         const res = await fetch(`${apiUrl}/api/cart/userId`, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                "Authorization": `Bearer ${token}`
             },
         })
 
@@ -25,7 +25,7 @@ export const deleteCartItem = async (cartId: string) => {
         const res = await fetch(`${apiUrl}/api/cart/userId`, {
             method: "DELETE",
             headers: {
-                'Authorization': `Bearer ${token}`
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                 cartId: cartId,
