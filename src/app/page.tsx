@@ -20,11 +20,13 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const fetchData = async () => {
-    const [bannerData, sellerData] = await Promise.all([
-      getBanner(),
-      getBestSeller()
-    ]);
+    // const [bannerData, sellerData] = await Promise.all([
+    //   getBanner(),
+    //   getBestSeller()
+    // ]);
+    const bannerData = await getBanner()
     setBanner(bannerData.banners)
+    const sellerData = await getBestSeller()
     setBestSeller(sellerData.products)
   }
 
